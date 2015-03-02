@@ -1,0 +1,7 @@
+/child::A/child::B/child::C
+child::A/descendant-or-self::node()/child::B/child::*[position()=1]
+/wikimedia/projects/project/@name
+/wikimedia//editions
+/wikimedia/projects/project/editions/edition[@language="English"]/text()
+/wikimedia/projects/project[@name="Wikipedia"]/editions/edition/text()
+/a/b[@name="file" and @class="whatever"]

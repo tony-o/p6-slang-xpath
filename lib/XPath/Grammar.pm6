@@ -9,6 +9,7 @@ rule statement_control:sym<xpath> {
   [
     <separator>? <node> <match>*
   ]+
+  <.ws>?
   $$
 }
 #  $

@@ -27,10 +27,10 @@ grammar XPath::Grammar {
 
   token operands {
     [
-      || '|'
-      || '&'
-      || 'and'
-      || 'or'
+    || '|'
+    || '&'
+    || 'and'
+    || 'or'
     ]
   }
 
@@ -39,8 +39,8 @@ grammar XPath::Grammar {
     [ 
       '=' 
       [ 
-        || <quotedstring> 
-        || $<number>=[\d+] 
+      || <quotedstring> 
+      || $<number>=[\d+] 
       ] 
     ]**0..1 
   }

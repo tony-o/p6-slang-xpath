@@ -1,7 +1,7 @@
 use lib 'lib';
-use Grammar::XPath;
+use XPath::Grammar;
 
 for 'xp.xpath'.IO.lines -> $l {
   $l.say;
-  say (Grammar::XPath.parse($l) ?? 'pass' !! 'fail');
+  say (XPath::Grammar.parse($l) ?? 'pass' !! 'fail');
 }

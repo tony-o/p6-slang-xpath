@@ -1,57 +1,56 @@
 use Grammar::Tracer;
 
-role XPath::Grammar;
+grammar XPath::Grammar {
 
-#rule TOP {
-#  ^
-rule statement_control:sym<xpath> {
-  <sym>
-  [
-    <separator>? <node> <match>*
-  ]+
-  <.ws>?
-  $$
-}
-#  $
-#};
+  token TOP { ^^ <path> $$ }
 
-rule separator {
-  [ '//' | '/' ]
-};
+  proto token statement_control {*}
+  token statement_control:sym<xpath> {
+    ^^
+    <sym>
+    <path>
+    $$
+  }
 
-rule node {
-  <-[\r\n\/\\\[\]]>+
-};
+  token path { [<separator>? <node> <match>*]+ <.ws>? }
 
-rule match {
-  '[' 
-  [ 
-    <criteria> 
-    <operands>**0..1 
-  ]+ 
-  ']'
-};
+  token separator { [ '//' || '/' ] }
 
-rule operands {
-  [
-    '|'
-    | '&'
-    | 'and'
-    | 'or'
-  ]
-}
+  token node  { <-[\r\n\/\\\[\]]>+ }
 
-rule criteria {
-  <-[\[\]\=]>+ 
-  [ 
-    '=' 
+  token match {
+    '[' 
     [ 
-      <quotedstring> 
-      | $<number>=[\d+] 
-    ] 
-  ]**0..1 
-}
+      <criteria> 
+      <operands>**0..1 
+    ]+ 
+    ']'
+  }
 
-token quotedstring {
-  $<q>=['\'' | '"'] .*? [ <?!after '\\'> $<q> ]
+  token operands {
+    [
+    || '|'
+    || '&'
+    || 'and'
+    || 'or'
+    ]
+  }
+
+  token criteria {
+    <-[\[\]\=]>+ 
+    [ 
+      '=' 
+      [ 
+      || <quotedstring> 
+      || $<number>=[\d+] 
+      ] 
+    ]**0..1 
+  }
+
+  token quotedstring { 
+    $<q>=<['"]> 
+    (.*?) 
+    [ <!after '\\'> $<q> ] 
+  }
+
 }

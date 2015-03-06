@@ -2,15 +2,17 @@ use Grammar::Tracer;
 
 grammar XPath::Grammar {
 
-  token TOP { <path> }
+  token TOP { ^^ <path> $$ }
 
   proto token statement_control {*}
   token statement_control:sym<xpath> {
+    ^^
     <sym>
     <path>
+    $$
   }
 
-  token path { [<separator>? <node> <match>*]+ <.ws>? $$ }
+  token path { [<separator>? <node> <match>*]+ <.ws>? }
 
   token separator { [ '//' || '/' ] }
 
